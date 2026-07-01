@@ -11,7 +11,7 @@ import InterviewHistory from './pages/InterviewHistory'
 import Pricing from './pages/Pricing'
 import InterviewReport from './pages/InterviewReport'
 
-export const ServerUrl  = "http://localhost:5001"
+export const ServerUrl  = "https://mock-interview-server.onrender.com"
 
 function App() {
 
