@@ -1,21 +1,31 @@
-import express from "express"
-import isAuth from "../middlewares/isAuth.js"
-import { upload } from "../middlewares/multer.js"
-import { analyzeResume, finishInterview, generateQuestion, getInterviewReport, getMyInterviews, submitAnswer } from "../controllers/interview.controller.js"
+import express from "express";
+import isAuth from "../middlewares/isAuth.js";
+import { upload } from "../middlewares/multer.js";
+import {
+  analyzeResume,
+  finishInterview,
+  generateQuestion,
+  getInterviewReport,
+  getMyInterviews,
+  submitAnswer
+} from "../controllers/interview.controller.js";
 
+const interviewRouter = express.Router();
 
+// ✅ Resume upload route
+interviewRouter.post(
+  "/resume",
+  isAuth,
+  upload.single("resume"),   // must match frontend FormData key
+  analyzeResume
+);
 
+// ✅ Other interview routes
+interviewRouter.post("/generate-questions", isAuth, generateQuestion);
+interviewRouter.post("/submit-answer", isAuth, submitAnswer);
+interviewRouter.post("/finish", isAuth, finishInterview);
 
-const interviewRouter = express.Router()
+interviewRouter.get("/get-interview", isAuth, getMyInterviews);
+interviewRouter.get("/report/:id", isAuth, getInterviewReport);
 
-interviewRouter.post("/resume",isAuth,upload.single("resume"),analyzeResume)
-interviewRouter.post("/generate-questions",isAuth,generateQuestion)
-interviewRouter.post("/submit-answer",isAuth,submitAnswer)
-interviewRouter.post("/finish",isAuth,finishInterview)
-
-interviewRouter.get("/get-interview",isAuth,getMyInterviews)
-interviewRouter.get("/report/:id",isAuth,getInterviewReport)
-
-
-
-export default interviewRouter
+export default interviewRouter;
