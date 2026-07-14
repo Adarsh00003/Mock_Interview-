@@ -11,11 +11,6 @@ import paymentRouter from "./routes/payment.route.js"
 
 const app = express()
 app.use(cors({
-<<<<<<< HEAD
-    origin: ["http://localhost:5174"],
-    credentials: true
-}))
-=======
   origin: [
     "http://localhost:5173",
     "http://localhost:5174",
@@ -23,7 +18,7 @@ app.use(cors({
   ],
   credentials: true
 }));
->>>>>>> d53c5b65b4eec83239698a4fb4902b1932a22012
+
 
 app.use(express.json())
 app.use(cookieParser())
