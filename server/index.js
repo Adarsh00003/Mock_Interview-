@@ -13,6 +13,7 @@ import liveInterviewRouter from "./routes/liveInterview.route.js"
 import initSocket from "./socket/socket.js"
 
 const app = express()
+
 app.use(cors({
   origin: [
     "http://localhost:5173",
@@ -21,36 +22,34 @@ app.use(cors({
     "https://mock-interview-gamma-flax.vercel.app"
   ],
   credentials: true
-}));
-
+}))
 
 app.use(express.json())
 app.use(cookieParser())
 
-app.use("/api/auth" , authRouter)
+// API routes
+app.use("/api/auth", authRouter)
 app.use("/api/user", userRouter)
-app.use("/api/interview" , interviewRouter)
-app.use("/api/payment" , paymentRouter)
+app.use("/api/interview", interviewRouter)
+app.use("/api/payment", paymentRouter)
 app.use("/api/live-interviews", liveInterviewRouter)
 
-// Basic root route to verify server is running
-app.get('/', (req, res) => {
-  res.send('Server is running')
+// Root route
+app.get("/", (req, res) => {
+  res.send("Server is running")
 })
 
-<<<<<<< HEAD
-const PORT = process.env.PORT || 5001
+// ✅ Corrected section (removed conflict markers)
+const PORT = process.env.PORT || 5000
 const httpServer = createServer(app)
 
+// Initialize socket.io
 initSocket(httpServer)
 
-httpServer.listen(PORT , ()=>{
-=======
-const PORT = process.env.PORT || 5000
-app.listen(PORT , ()=>{
->>>>>>> a3e591570a2c977cf8bc35dbc3eebca55ffd870a
-    console.log(`Server running on port ${PORT}`)
-    connectDb()
+// Start server
+httpServer.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+  connectDb()
 })
 
 export { app, httpServer }
