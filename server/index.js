@@ -22,10 +22,7 @@ app.use(cors({
   ],
   credentials: true
 }));
-<<<<<<< HEAD
-=======
 
->>>>>>> a3e591570a2c977cf8bc35dbc3eebca55ffd870a
 
 app.use(express.json())
 app.use(cookieParser())
