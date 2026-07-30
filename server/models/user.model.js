@@ -13,6 +13,11 @@ const userSchema = new mongoose.Schema({
     credits:{
         type:Number,
         default:100
+    },
+    role:{
+        type:String,
+        enum:["HR", "Candidate"],
+        default:"Candidate"
     }
 
 }, {timestamps:true})

@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import { useState } from 'react';
 import axios from "axios"
-import { ServerUrl } from '../App';
+import { ServerUrl } from '../config';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserData } from '../redux/userSlice';
 function Step1SetUp({ onStart }) {
@@ -35,7 +35,9 @@ function Step1SetUp({ onStart }) {
         formdata.append("resume", resumeFile)
 
         try {
-            const result = await axios.post(ServerUrl + "/api/interview/resume", formdata, { withCredentials: true })
+            const result = await axios.post(ServerUrl + "/api/interview/resume", formdata, { 
+                withCredentials: true
+            })
 
             console.log(result.data)
 
@@ -49,8 +51,9 @@ function Step1SetUp({ onStart }) {
             setAnalyzing(false);
 
         } catch (error) {
-            console.log(error)
+            console.error("Resume upload error:", error.response?.data || error.message)
             setAnalyzing(false);
+            alert("Error analyzing resume: " + (error.response?.data?.message || error.message))
         }
     }
 

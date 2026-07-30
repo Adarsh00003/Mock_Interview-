@@ -7,9 +7,12 @@ import Interview from "../models/interview.model.js";
 export const analyzeResume = async (req, res) => {
   try {
     if (!req.file) {
-      return res.status(400).json({ message: "Resume required" });
+      console.error("No file received in request");
+      return res.status(400).json({ message: "Resume file is required" });
     }
+    
     const filepath = req.file.path
+    console.log("Processing resume from:", filepath);
 
     const fileBuffer = await fs.promises.readFile(filepath)
     const uint8Array = new Uint8Array(fileBuffer)
@@ -66,8 +69,14 @@ Return strictly JSON:
 
     const parsed = JSON.parse(extractJson(aiResponse));
 
-    fs.unlinkSync(filepath)
-
+    // Clean up uploaded file
+    try {
+      if (fs.existsSync(filepath)) {
+        fs.unlinkSync(filepath)
+      }
+    } catch (err) {
+      console.log("Could not delete file:", err)
+    }
 
     res.json({
       role: parsed.role,
@@ -78,13 +87,18 @@ Return strictly JSON:
     }); 
 
   } catch (error) {
-    console.error(error);
+    console.error("Resume analysis error:", error);
 
+    // Clean up file on error
     if (req.file && fs.existsSync(req.file.path)) {
-      fs.unlinkSync(req.file.path);
+      try {
+        fs.unlinkSync(req.file.path);
+      } catch (err) {
+        console.log("Could not delete file:", err)
+      }
     }
 
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: "Error analyzing resume: " + error.message });
   }
 };
 
