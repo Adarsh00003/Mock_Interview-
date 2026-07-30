@@ -22,6 +22,10 @@ app.use(cors({
   ],
   credentials: true
 }));
+<<<<<<< HEAD
+=======
+
+>>>>>>> a3e591570a2c977cf8bc35dbc3eebca55ffd870a
 
 app.use(express.json())
 app.use(cookieParser())
@@ -37,12 +41,17 @@ app.get('/', (req, res) => {
   res.send('Server is running')
 })
 
+<<<<<<< HEAD
 const PORT = process.env.PORT || 5001
 const httpServer = createServer(app)
 
 initSocket(httpServer)
 
 httpServer.listen(PORT , ()=>{
+=======
+const PORT = process.env.PORT || 5000
+app.listen(PORT , ()=>{
+>>>>>>> a3e591570a2c977cf8bc35dbc3eebca55ffd870a
     console.log(`Server running on port ${PORT}`)
     connectDb()
 })
