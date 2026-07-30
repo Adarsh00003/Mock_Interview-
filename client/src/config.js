@@ -1,1 +1,1 @@
-export const ServerUrl = import.meta.env.VITE_SERVER_URL || "http://localhost:5001";
+export const ServerUrl = import.meta.env.VITE_SERVER_URL || "https://mock-interview-server.onrender.com/";
